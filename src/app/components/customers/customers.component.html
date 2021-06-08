@@ -1,0 +1,208 @@
+<div>
+  <div
+    style="
+      border-radius: 10px;
+      border: 1px solid black;
+      padding-top: 20px;
+      background-color: rgb(255, 255, 255, 0.9);
+    "
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <button
+            mat-button
+            class="btn btn-info"
+            (click)="newCustomerHandler()"
+          >
+            New Customer
+          </button>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Items Per Page</mat-label>
+            <mat-select [(ngModel)]="itemsPerPage" id="fill">
+              <mat-option value="3"> 3 </mat-option>
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="15">15</mat-option>
+              <mat-option value="20">20</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Searh Based On:</mat-label>
+            <mat-select [(ngModel)]="prop" id="fill">
+              <mat-option value=""> All </mat-option>
+              <mat-option value="name">Name</mat-option>
+              <mat-option value="email">Email</mat-option>
+              <mat-option value="mobile">Mobile</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="term" [value]="term" />
+            <button
+              *ngIf="term"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="term = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Card View">
+      <div class="container-fluid">
+        <div class="row" *ngIf="items.length > 0">
+          <div
+            class="col-lg-3 col-md-6 col-sm-6"
+            *ngFor="
+              let item of items
+                | paginator
+                  : {
+                      elementsPerPage: itemsPerPage,
+                      currentPage: currentPage,
+                      searchTerm: term,
+                      prop: prop
+                    }
+            "
+          >
+            <div class="card card-stats">
+              <div class="card-header card-header-icon">
+                <div class="card-icon" style="padding: 0">
+                  <!-- <i  class="material-icons">person</i> -->
+                  <img
+                    style="width: 90px; height: 90px; object-fit: fill"
+                    [src]="
+                      item.image
+                        ? item.image
+                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGRJqB6g2s4cKABXTUSALemeR1SqHy6D9IrSyfmWDZ9D1Nu5tMtJfaoxGdsCb6ybAOjS0&usqp=CAU'
+                    "
+                  />
+                </div>
+                <div
+                  class="card-body"
+                  style="
+                    margin-top: 80px;
+                    text-align: center;
+                    margin-bottom: -20px;
+                  "
+                >
+                  <h6 style="color: black">{{ item.name }}</h6>
+                  <span style="color: black"
+                    >{{ item.address.state + "-" + item.address.pincode }}
+                  </span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button mat-button (click)="sendObject(item)">
+                  View Orders
+                </button>
+                <button
+                  mat-button
+                  *ngIf="role === 'Manager'"
+                  (click)="editClickHandler(item)"
+                >
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="List View">
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive" *ngIf="items.length > 0">
+              <table class="table">
+                <tbody>
+                  <ng-container
+                    *ngFor="
+                      let item of items
+                        | paginator
+                          : {
+                              elementsPerPage: itemsPerPage,
+                              currentPage: currentPage,
+                              searchTerm: term,
+                              prop: prop
+                            }
+                    "
+                  >
+                    <tr
+                      style="cursor: pointer; border: 1px solid transparent"
+                      onMouseOver="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.fontWeight='500'"
+                      onMouseOut="this.style.backgroundColor='#FFF';this.style.fontWeight='300'"
+                    >
+                      <td>
+                        {{ item.name }}
+                      </td>
+                      <td>
+                        {{ item.address.city }}
+                      </td>
+                      <td>
+                        {{ item.address.state + "-" + item.address.pincode }}
+                      </td>
+                      <td>
+                        <button
+                          mat-button
+                          class="btn btn-info btn-sm"
+                          (click)="sendObject(item)"
+                        >
+                          View Orders
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          mat-button
+                          class="btn btn-warning btn-sm"
+                          *ngIf="role === 'Customer'"
+                          (click)="editClickHandler(item)"
+                        >
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <br />
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <pagination-controls
+        *ngIf="term == ''"
+        [stlyling]="stylingProps"
+        (pageChange)="currentPage = $event"
+        [controls]="{
+          currentPage: currentPage,
+          itemsPerPage: itemsPerPage,
+          dataLength: items.length,
+          pageTabs: pageTabs
+        }"
+      >
+      </pagination-controls>
+    </div>
+  </div>
+</div>

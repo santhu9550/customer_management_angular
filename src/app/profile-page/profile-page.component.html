@@ -1,0 +1,73 @@
+<div class="main-content">
+  <div class="card card-profile">
+    <div class="card-avatar">
+      <a href="javascript:void(0)">
+        <img
+          class="img"
+          [src]="
+            item?.photo
+              ? item.photo
+              : 'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png'
+          "
+        />
+      </a>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title">{{ item.role }}</h4>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>name</td>
+                  <td>
+                    {{ item?.name }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>mobile</td>
+                  <td>
+                    {{ item?.mobile }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>email</td>
+                  <td>
+                    {{ item.email }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>city</td>
+                  <td>
+                    {{ item.address.city }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>state</td>
+                  <td>
+                    {{ item.address.state }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>pincode</td>
+                  <td>
+                    {{ item.address.pincode }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

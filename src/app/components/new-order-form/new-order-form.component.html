@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>Create Order</h1>
+<div mat-dialog-content>
+  <form [formGroup]="orderForm" (ngSubmit)="submitHandler()">
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="example-full-width" required>
+          <input
+            formControlName="name"
+            matInput
+            placeholder="Name"
+            type="text"
+            required
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="example-full-width" required>
+          <input
+            formControlName="amount"
+            matInput
+            placeholder="Amount"
+            type="number"
+            required
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select [(value)]="status" name="option">
+            <mat-option *ngFor="let option of options" [value]="option.value">
+              {{ option.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <button
+      mat-raised-button
+      class="btn btn-danger"
+      (click)="this.data.endDialog()"
+    >
+      Close
+    </button>
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="!orderForm.valid"
+      class="btn btn-info"
+    >
+      {{ this.data?.isEdit ? "Edit" : "Create" }}
+    </button>
+  </form>
+</div>

@@ -1,0 +1,9 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        
+     <app-customers *ngIf="isSelected===false" [items] ="customers" (selectedItem)="receiveObject($event)" [refetchCustomers]="getCustomers"></app-customers>
+     <app-profile-card *ngIf="isSelected===true" [item] = "selectedCustomer" (handleClick) = "clickHandler($event)"></app-profile-card>
+         </div>
+  </div>
+  

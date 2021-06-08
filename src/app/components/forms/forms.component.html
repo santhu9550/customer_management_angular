@@ -1,0 +1,135 @@
+<h1 mat-dialog-title>
+  {{ this.data?.isEdit ? "Edit Customer" : "Create Customer" }}
+</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" (ngSubmit)="submitHandler()">
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="example-full-width" required>
+          <input
+            formControlName="email"
+            matInput
+            placeholder="Email address"
+            type="email"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="example-full-width">
+          <input
+            formControlName="mobile"
+            matInput
+            placeholder="Mobile"
+            required="true"
+            type="number"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col" *ngIf="this.data?.isEdit === false">
+        <mat-form-field class="example-full-width">
+          <input
+            formControlName="password"
+            matInput
+            placeholder="Password"
+            required="true"
+            type="password"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <input
+            formControlName="firstname"
+            matInput
+            placeholder="First Name"
+            type="text"
+            required="true"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <input
+            formControlName="lastname"
+            matInput
+            placeholder="Last Name"
+            required="true"
+            type="text"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div formGroupName="address">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width">
+            <input
+              formControlName="line1"
+              matInput
+              placeholder="Line 1"
+              required="true"
+              type="text"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width">
+            <input
+              formControlName="line2"
+              matInput
+              placeholder="Line 2"
+              required="true"
+              type="text"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input
+              formControlName="state"
+              matInput
+              placeholder="State"
+              required="true"
+              type="text"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input
+              formControlName="city"
+              matInput
+              placeholder="City"
+              required="true"
+              type="text"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input
+              formControlName="pincode"
+              matInput
+              placeholder="pincode"
+              required="true"
+              type="text"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="!userForm.valid"
+      class="btn btn-info"
+    >
+      {{ this.data?.isEdit ? "Edit" : "Create" }}
+    </button>
+  </form>
+</div>

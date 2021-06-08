@@ -1,0 +1,118 @@
+<div class="main-content">
+  <div>
+    <div
+      style="
+        border-radius: 10px;
+        border: 1px solid black;
+        padding-top: 20px;
+        background-color: rgb(255, 255, 255, 0.9);
+      "
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Items Per Page</mat-label>
+              <mat-select [(ngModel)]="itemsPerPage" id="fill">
+                <mat-option value="3"> 3 </mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="10">10</mat-option>
+                <mat-option value="15">15</mat-option>
+                <mat-option value="20">20</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Searh Based On:</mat-label>
+              <mat-select [(ngModel)]="prop" id="fill">
+                <mat-option value=""> All </mat-option>
+                <mat-option value="name">Name</mat-option>
+                <mat-option value="status">Status</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Search</mat-label>
+              <input matInput type="text" [(ngModel)]="term" [value]="term" />
+              <button
+                *ngIf="term"
+                matSuffix
+                mat-icon-button
+                aria-label="Clear"
+                (click)="term = ''"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th>Name</th>
+              <th>Status</th>
+              <th>Amount</th>
+              <th>Ordered By</th>
+              <th>Created On</th>
+              <th>Estimated Delivery</th>
+            </thead>
+            <tbody>
+              <ng-container
+                *ngFor="
+                  let order of orders
+                    | paginator
+                      : {
+                          elementsPerPage: itemsPerPage,
+                          currentPage: currentPage,
+                          searchTerm: term,
+                          prop: prop
+                        }
+                "
+              >
+                <tr
+                  style="cursor: pointer; border: 1px solid transparent"
+                  onMouseOver="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.fontWeight='500'"
+                  onMouseOut="this.style.backgroundColor='#FFF';this.style.fontWeight='300'"
+                >
+                  <td>{{ order.name }}</td>
+                  <td>{{ order.status }}</td>
+                  <td>{{ order.amount }}</td>
+                  <td>{{ order.user.name }}</td>
+                  <td>{{ order.createdAt }}</td>
+                  <td>
+                    {{ order?.estDel ? order?.estDel : "NA" }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <pagination-controls
+                *ngIf="term == ''"
+                [stlyling]="stylingProps"
+                (pageChange)="currentPage = $event"
+                [controls]="{
+                  currentPage: currentPage,
+                  itemsPerPage: itemsPerPage,
+                  dataLength: orders.length,
+                  pageTabs: pageTabs
+                }"
+              >
+              </pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+</div>
