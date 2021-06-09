@@ -7,21 +7,27 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthGuard } from "./auth/auth.guard";
 import { SigninComponent } from "./signin/signin.component";
 const routes: Routes =[
-  { path: 'login', component: SigninComponent },
   {
     path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  { path: 'login', component: SigninComponent },
+  {
+    path: 'app',
     redirectTo: 'customers',
     pathMatch: 'full',
     canActivate: [AuthGuard]
   }, {
-    path: '',
+    path: 'app',
     component: AdminLayoutComponent,
     canActivate: [AuthGuard],
     children: [{
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
     }]
-  }
+  },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

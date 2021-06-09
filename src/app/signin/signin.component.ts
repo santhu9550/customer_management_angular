@@ -19,7 +19,7 @@ export class SigninComponent implements OnInit {
     public router: Router
   ) {
     if(authService.isLoggedIn){
-      router.navigate(['customers']);
+      router.navigate(['/app/customers']);
     }
   }
 

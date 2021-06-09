@@ -35,7 +35,7 @@ export class AuthService {
         this.getUserProfile().subscribe((res) => {
           this.loader.stop();
           this.currentUser = res;
-          this.router.navigate(['customers']);
+          this.router.navigate(['/app/customers']);
           
         })
       },(err:any) => {

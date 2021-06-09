@@ -11,6 +11,7 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'orders',     component: OrdersPageComponent },
       { path: 'logout',     component: LogoutComponent },
       { path: 'profile',     component: ProfilePageComponent },
+      { path: '**', redirectTo: 'customers' }
 
 
 ];
