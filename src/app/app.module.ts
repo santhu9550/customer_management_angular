@@ -15,6 +15,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { SigninComponent } from './signin/signin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/authconfig.interceptor';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 
 
@@ -29,6 +30,7 @@ import { AuthInterceptor } from './auth/authconfig.interceptor';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+  NgxUiLoaderModule
   ],
   declarations: [
     AppComponent,

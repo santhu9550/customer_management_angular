@@ -88,8 +88,8 @@
                   <img
                     style="width: 90px; height: 90px; object-fit: fill"
                     [src]="
-                      item.image
-                        ? item.image
+                      item.photo
+                        ? item.photo
                         : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGRJqB6g2s4cKABXTUSALemeR1SqHy6D9IrSyfmWDZ9D1Nu5tMtJfaoxGdsCb6ybAOjS0&usqp=CAU'
                     "
                   />
@@ -102,9 +102,13 @@
                     margin-bottom: -20px;
                   "
                 >
-                  <h6 style="color: black">{{ item.name }}</h6>
+                  <h6
+                    style="color: black; margin-bottom: -2px; font-weight: 600"
+                  >
+                    {{ item.name }}
+                  </h6>
                   <span style="color: black"
-                    >{{ item.address.state + "-" + item.address.pincode }}
+                    >{{ item.address.city + " " + item.address.state }}
                   </span>
                 </div>
               </div>
@@ -171,7 +175,7 @@
                         <button
                           mat-button
                           class="btn btn-warning btn-sm"
-                          *ngIf="role === 'Customer'"
+                          *ngIf="role === 'Manager'"
                           (click)="editClickHandler(item)"
                         >
                           Edit

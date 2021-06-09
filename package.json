@@ -44,6 +44,7 @@
     "moment": "^2.29.1",
     "ngconf-pagination": "^1.1.0",
     "ngx-pagination": "^5.1.0",
+    "ngx-ui-loader": "^11.0.0",
     "perfect-scrollbar": "1.5.0",
     "popper.js": "1.16.1",
     "rxjs": "6.6.3",
